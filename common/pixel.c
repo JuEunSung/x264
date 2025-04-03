@@ -811,28 +811,28 @@ void x264_pixel_init( uint32_t cpu, x264_pixel_function_t *pixf )
     memset( pixf, 0, sizeof(*pixf) );
 
 #define INIT2_NAME( name1, name2, cpu ) \
-    pixf->name1[PIXEL_16x16] = x264_pixel_##name2##_16x16##cpu;\
-    pixf->name1[PIXEL_16x8]  = x264_pixel_##name2##_16x8##cpu;
+    pixf->name1[PIXEL_16x16] = (x264_pixel_cmp_t)x264_pixel_##name2##_16x16##cpu;\
+    pixf->name1[PIXEL_16x8]  = (x264_pixel_cmp_t)x264_pixel_##name2##_16x8##cpu;
 #define INIT4_NAME( name1, name2, cpu ) \
     INIT2_NAME( name1, name2, cpu ) \
-    pixf->name1[PIXEL_8x16]  = x264_pixel_##name2##_8x16##cpu;\
-    pixf->name1[PIXEL_8x8]   = x264_pixel_##name2##_8x8##cpu;
+    pixf->name1[PIXEL_8x16]  = (x264_pixel_cmp_t)x264_pixel_##name2##_8x16##cpu;\
+    pixf->name1[PIXEL_8x8]   = (x264_pixel_cmp_t)x264_pixel_##name2##_8x8##cpu;
 #define INIT5_NAME( name1, name2, cpu ) \
     INIT4_NAME( name1, name2, cpu ) \
-    pixf->name1[PIXEL_8x4]   = x264_pixel_##name2##_8x4##cpu;
+    pixf->name1[PIXEL_8x4]   = (x264_pixel_cmp_t)x264_pixel_##name2##_8x4##cpu;
 #define INIT6_NAME( name1, name2, cpu ) \
     INIT5_NAME( name1, name2, cpu ) \
-    pixf->name1[PIXEL_4x8]   = x264_pixel_##name2##_4x8##cpu;
+    pixf->name1[PIXEL_4x8]   = (x264_pixel_cmp_t)x264_pixel_##name2##_4x8##cpu;
 #define INIT7_NAME( name1, name2, cpu ) \
     INIT6_NAME( name1, name2, cpu ) \
-    pixf->name1[PIXEL_4x4]   = x264_pixel_##name2##_4x4##cpu;
+    pixf->name1[PIXEL_4x4]   = (x264_pixel_cmp_t)x264_pixel_##name2##_4x4##cpu;
 #define INIT8_NAME( name1, name2, cpu ) \
     INIT7_NAME( name1, name2, cpu ) \
-    pixf->name1[PIXEL_4x16]  = x264_pixel_##name2##_4x16##cpu;
+    pixf->name1[PIXEL_4x16]  = (x264_pixel_cmp_t)x264_pixel_##name2##_4x16##cpu;
 #if HAVE_SVE
 #define INIT7_NAME_SVE_SSD_10BIT( ) \
-    pixf->ssd[PIXEL_4x4]   = x264_pixel_ssd_4x4_sve; \
-    pixf->ssd[PIXEL_4x8]   = x264_pixel_ssd_4x8_sve;
+    pixf->ssd[PIXEL_4x4]   = (x264_pixel_cmp_t)x264_pixel_ssd_4x4_sve; \
+    pixf->ssd[PIXEL_4x8]   = (x264_pixel_cmp_t)x264_pixel_ssd_4x8_sve;
 #endif
 #if HAVE_SVE
 #define INIT8_NAME_SVE_SSD( ) \
