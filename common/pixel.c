@@ -116,8 +116,8 @@ uint64_t x264_pixel_ssd_wxh( x264_pixel_function_t *pf, pixel *pix1, intptr_t i_
     int y;
     int align = !(((intptr_t)pix1 | (intptr_t)pix2 | i_pix1 | i_pix2) & 15);
 
-#define SSD(size) i_ssd += pf->ssd[size]( pix1 + y*i_pix1 + x, i_pix1, \
-                                          pix2 + y*i_pix2 + x, i_pix2 );
+#define SSD(size) i_ssd += ((x264_pixel_cmp_t)pf->ssd[size])( pix1 + y*i_pix1 + x, i_pix1, \
+                                                              pix2 + y*i_pix2 + x, i_pix2 );
     for( y = 0; y < i_height-15; y += 16 )
     {
         int x = 0;
