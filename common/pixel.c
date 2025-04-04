@@ -1507,7 +1507,14 @@ void x264_pixel_init( uint32_t cpu, x264_pixel_function_t *pixf )
         }
         else    // really just scheduled for dual issue / A8
         {
-            INIT5( sad_aligned, _neon_dual );
+            // INIT5( sad_aligned, _neon_dual );
+            pixf->sad_aligned[PIXEL_16x16] = (x264_pixel_cmp_t)x264_pixel_sad_aligned_16x16_neon_dual;
+            pixf->sad_aligned[PIXEL_16x8]  = (x264_pixel_cmp_t)x264_pixel_sad_aligned_16x8_neon_dual;
+            pixf->sad_aligned[PIXEL_8x16]  = (x264_pixel_cmp_t)x264_pixel_sad_aligned_8x16_neon_dual;
+            pixf->sad_aligned[PIXEL_8x8]   = (x264_pixel_cmp_t)x264_pixel_sad_aligned_8x8_neon_dual;
+            pixf->sad_aligned[PIXEL_8x4]   = (x264_pixel_cmp_t)x264_pixel_sad_aligned_8x4_neon_dual;
+            pixf->sad_aligned[PIXEL_4x8]   = (x264_pixel_cmp_t)x264_pixel_sad_aligned_4x8_neon_dual;
+            pixf->sad_aligned[PIXEL_4x4]   = (x264_pixel_cmp_t)x264_pixel_sad_aligned_4x4_neon_dual;
         }
     }
 #endif
