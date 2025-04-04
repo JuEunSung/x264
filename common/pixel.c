@@ -1435,12 +1435,36 @@ void x264_pixel_init( uint32_t cpu, x264_pixel_function_t *pixf )
     }
     if( cpu&X264_CPU_NEON )
     {
-        INIT5( sad, _neon );
-        INIT5( sad_aligned, _neon );
+        // INIT5( sad, _neon );
+        pixf->sad[PIXEL_16x16]       = (x264_pixel_cmp_t)x264_pixel_sad_16x16_neon;
+        pixf->sad[PIXEL_16x8]        = (x264_pixel_cmp_t)x264_pixel_sad_16x8_neon;
+        pixf->sad[PIXEL_8x16]        = (x264_pixel_cmp_t)x264_pixel_sad_8x16_neon;
+        pixf->sad[PIXEL_8x8]         = (x264_pixel_cmp_t)x264_pixel_sad_8x8_neon;
+        pixf->sad[PIXEL_8x4]         = (x264_pixel_cmp_t)x264_pixel_sad_8x4_neon;
+        // INIT5( sad_aligned, _neon );
+        pixf->sad_aligned[PIXEL_16x16] = (x264_pixel_cmp_t)x264_pixel_sad_aligned_16x16_neon;
+        pixf->sad_aligned[PIXEL_16x8]  = (x264_pixel_cmp_t)x264_pixel_sad_aligned_16x8_neon;
+        pixf->sad_aligned[PIXEL_8x16]  = (x264_pixel_cmp_t)x264_pixel_sad_aligned_8x16_neon;
+        pixf->sad_aligned[PIXEL_8x8]   = (x264_pixel_cmp_t)x264_pixel_sad_aligned_8x8_neon;
+        pixf->sad_aligned[PIXEL_8x4]   = (x264_pixel_cmp_t)x264_pixel_sad_aligned_8x4_neon;
         INIT7( sad_x3, _neon );
         INIT7( sad_x4, _neon );
-        INIT7( ssd, _neon );
-        INIT7( satd, _neon );
+        // INIT7( ssd, _neon );
+        ixf->ssd[PIXEL_16x16]       = (x264_pixel_cmp_t)x264_pixel_ssd_16x16_neon;
+        pixf->ssd[PIXEL_16x8]        = (x264_pixel_cmp_t)x264_pixel_ssd_16x8_neon;
+        pixf->ssd[PIXEL_8x16]        = (x264_pixel_cmp_t)x264_pixel_ssd_8x16_neon;
+        pixf->ssd[PIXEL_8x8]         = (x264_pixel_cmp_t)x264_pixel_ssd_8x8_neon;
+        pixf->ssd[PIXEL_8x4]         = (x264_pixel_cmp_t)x264_pixel_ssd_8x4_neon;
+        pixf->ssd[PIXEL_4x8]         = (x264_pixel_cmp_t)x264_pixel_ssd_4x8_neon;
+        pixf->ssd[PIXEL_4x4]         = (x264_pixel_cmp_t)x264_pixel_ssd_4x4_neon;
+        // INIT7( satd, _neon );
+        pixf->satd[PIXEL_16x16]      = (x264_pixel_cmp_t)x264_pixel_satd_16x16_neon;
+        pixf->satd[PIXEL_16x8]       = (x264_pixel_cmp_t)x264_pixel_satd_16x8_neon;
+        pixf->satd[PIXEL_8x16]       = (x264_pixel_cmp_t)x264_pixel_satd_8x16_neon;
+        pixf->satd[PIXEL_8x8]        = (x264_pixel_cmp_t)x264_pixel_satd_8x8_neon;
+        pixf->satd[PIXEL_8x4]        = (x264_pixel_cmp_t)x264_pixel_satd_8x4_neon;
+        pixf->satd[PIXEL_4x8]        = (x264_pixel_cmp_t)x264_pixel_satd_4x8_neon;
+        pixf->satd[PIXEL_4x4]        = (x264_pixel_cmp_t)x264_pixel_satd_4x4_neon;
         INIT7( satd_x3, _neon );
         INIT7( satd_x4, _neon );
         INIT4( hadamard_ac, _neon );
