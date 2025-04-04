@@ -1500,10 +1500,14 @@ void x264_pixel_init( uint32_t cpu, x264_pixel_function_t *pixf )
 
         if( cpu&X264_CPU_FAST_NEON_MRC )
         {
-            pixf->sad[PIXEL_4x8] = x264_pixel_sad_4x8_neon;
-            pixf->sad[PIXEL_4x4] = x264_pixel_sad_4x4_neon;
-            pixf->sad_aligned[PIXEL_4x8] = x264_pixel_sad_aligned_4x8_neon;
-            pixf->sad_aligned[PIXEL_4x4] = x264_pixel_sad_aligned_4x4_neon;
+            // pixf->sad[PIXEL_4x8] = x264_pixel_sad_4x8_neon;
+            // pixf->sad[PIXEL_4x4] = x264_pixel_sad_4x4_neon;
+            // pixf->sad_aligned[PIXEL_4x8] = x264_pixel_sad_aligned_4x8_neon;
+            // pixf->sad_aligned[PIXEL_4x4] = x264_pixel_sad_aligned_4x4_neon;
+            pixf->sad[PIXEL_4x8]           = (x264_pixel_cmp_t)x264_pixel_sad_4x8_neon;
+            pixf->sad[PIXEL_4x4]           = (x264_pixel_cmp_t)x264_pixel_sad_4x4_neon;
+            pixf->sad_aligned[PIXEL_4x8]   = (x264_pixel_cmp_t)x264_pixel_sad_aligned_4x8_neon;
+            pixf->sad_aligned[PIXEL_4x4]   = (x264_pixel_cmp_t)x264_pixel_sad_aligned_4x4_neon;
         }
         else    // really just scheduled for dual issue / A8
         {
