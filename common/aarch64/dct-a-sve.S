@@ -24,9 +24,11 @@
  *****************************************************************************/
 
 #ifdef __APPLE__
-#error "SVE assembly not supported on Apple platforms"
-#endif
-
+    .text
+    .globl dummy_sve_skip
+dummy_sve_skip:
+    ret
+#else
 #include "asm.S"
 #include "dct-a-common.S"
 
@@ -90,3 +92,4 @@ function zigzag_interleave_8x8_cavlc_sve, export=1
     st1b        {z16.s}, p2, [x2]
     ret
 endfunc
+#endif
