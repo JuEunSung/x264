@@ -24,9 +24,11 @@
  *****************************************************************************/
 
 #ifdef __APPLE__
-#error "SVE assembly not supported on Apple platforms"
-#endif
-
+    .text
+    .globl dummy_sve_skip
+dummy_sve_skip:
+    ret
+#else
 #include "asm.S"
 #include "pixel-a-common.S"
 
@@ -525,3 +527,4 @@ SSD_FUNC_SVE   4, 8
 SSD_FUNC_SVE   4, 16
 
 #endif /* BIT_DEPTH == 8 */
+#endif
