@@ -450,10 +450,16 @@ uint32_t x264_cpu_detect( void )
 
     // If these features are enabled unconditionally in the compiler, we can
     // assume that they are available.
-#ifdef __ARM_FEATURE_SVE
+// #ifdef __ARM_FEATURE_SVE
+//     flags |= X264_CPU_SVE;
+// #endif
+// #ifdef __ARM_FEATURE_SVE2
+//     flags |= X264_CPU_SVE2;
+// #endif
+#if defined(__ARM_FEATURE_SVE) && !defined(__APPLE__)
     flags |= X264_CPU_SVE;
 #endif
-#ifdef __ARM_FEATURE_SVE2
+#if defined(__ARM_FEATURE_SVE2) && !defined(__APPLE__)
     flags |= X264_CPU_SVE2;
 #endif
 
