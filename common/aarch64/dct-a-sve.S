@@ -23,6 +23,10 @@
  * For more information, contact us at licensing@x264.com.
  *****************************************************************************/
 
+#ifdef __APPLE__
+#error "SVE assembly not supported on Apple platforms"
+#endif
+
 #include "asm.S"
 #include "dct-a-common.S"
 
